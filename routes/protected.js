@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
-router.get('/profile', (req, res) => {
-    if (!req.session.user) {
-      return res.send('Access denied. Please log in.');
-    }
-    res.send(`Welcome to your profile, ${req.session.user.username}!`);
-  });
-  
+  router.get('/profile', passport.authenticate('local'), (req, res) => {
+  res.send(`Welcome to your profile, ${req.user.username}!`);
+});
 module.exports = router;
